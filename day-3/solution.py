@@ -14,7 +14,7 @@ def solve(data):
                 if line[char] > highestRight:
                     highestRight = line[char]
             total += int(highestLeft + highestRight)
-        print(total) 
+        return total 
 
 def solve2(data):
     k = 12
@@ -31,27 +31,26 @@ def solve2(data):
         if drop > 0:
             stack = stack[0:-drop]
         batteries.append(int(''.join(stack)))
-    print(sum(batteries))
+    return sum(batteries)
 
-try:
-    with open("example.txt", "r") as file:
-        data = file.read().strip().splitlines()
-        print(">>>>>>>>>>>>>>>>>>>> EXAMPLE SOLUTION OUTPUT: >>>>>>>>>>>>>>>>>>>>>>>>>")
-        print(" PART 1: ") 
-        solve(data)
-        print(" PART 2: ")
-        solve2(data)
+def print_section(title, part1, part2):
+    print("=" * 60)
+    print(f"{title:^60}")
+    print("=" * 60)
+    print(f"  Part 1 Answer: {part1}")
+    print(f"  Part 2 Answer: {part2}")
+    print()
 
-except FileNotFoundError:
-    print("File not found. Please ensure 'example.txt' exists in the current directory.")
+def run(filename, title):
+    try:
+        with open(filename, "r") as file:
+            data = file.read().strip().splitlines()
+            part1 = solve(data)
+            part2 = solve2(data)
+            print_section(title, part1, part2)
+    except FileNotFoundError:
+        print(f"File not found. Please ensure '{filename}' exists in the current directory.")
 
-try:
-    with open("input.txt", "r") as file:
-        data = file.read().strip().splitlines()
-        print(">>>>>>>>>>>>>>>>>>>> SOLUTION OUTPUT: >>>>>>>>>>>>>>>>>>>>>>>>>")
-        print(" PART 1: ") 
-        solve(data)
-        print(" PART 2: ")
-        solve2(data)
-except FileNotFoundError:
-    print("File not found. Please ensure 'input.txt' exists in the current directory.")
+if __name__ == "__main__":
+    run("example.txt", "EXAMPLE SOLUTION OUTPUT")
+    run("input.txt", "SOLUTION OUTPUT")
