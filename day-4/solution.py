@@ -38,9 +38,55 @@ def solve(data):
     
 
 def solve2(data):
-    print("Solution 2 not implemented")
-    # TODO
+    dataH = len(data)
+    dataW = len(data[0])
 
+    padded = [
+        [0] * (dataW + 2)
+        for _ in range(dataH + 2)
+    ]
+
+    for i in range(dataH):
+        for j in range(dataW):
+            padded[i + 1][j + 1] = 1 if data[i][j] == '@' else 0
+
+    
+    final_count = 0
+    while(True):
+        count = 0
+        to_remove = []
+        for i in range(1, dataH + 1):
+            for j in range(1, dataW + 1):
+                if padded[i][j] == 0:
+                    continue
+                rolls = 0
+                # check 3 above
+                rolls += padded[i - 1][j - 1]
+                rolls += padded[i - 1][j]
+                rolls += padded[i - 1][j + 1]
+                # check 2 on row
+                rolls += padded[i][j - 1]
+                rolls += padded[i][j + 1]
+                #check 3 bellow
+                rolls += padded[i + 1][j - 1]
+                rolls += padded[i + 1][j]
+                rolls += padded[i + 1][j + 1]
+
+                if rolls < 4:
+                    to_remove.append((i, j))
+                    count+=1
+        # we're dont if no more can be removed
+        if count == 0:
+            break
+        else:
+            final_count += count
+        
+        # start removing all the rolls
+        for i, j in to_remove:
+            padded[i][j] = 0
+        
+    return final_count 
+ 
 def print_section(title, part1, part2):
     print("=" * 60)
     print(f"{title:^60}")
