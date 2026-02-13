@@ -1,6 +1,21 @@
 def solve(data):
-    return 0
-    # TODO
+    # will be list of valid data split by empty new line
+    count = 0
+    fresh = []
+    for i, x in enumerate(data):
+        if x == '':
+            data = data[i:]
+            break
+        t = tuple(map(int, x.split('-')))
+        fresh.append(t)
+
+    while(i := data.pop()):
+        for a, b in fresh:
+            if a <= int(i) <= b:
+                count += 1
+                break
+    
+    return count
 
 def solve2(data):
     return 0
@@ -26,4 +41,4 @@ def run(filename, title):
 
 if __name__ == "__main__":
     run("example.txt", "EXAMPLE SOLUTION OUTPUT")
-    # run("input.txt", "SOLUTION OUTPUT")
+    run("input.txt", "SOLUTION OUTPUT")
