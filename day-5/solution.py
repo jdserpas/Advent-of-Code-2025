@@ -1,3 +1,5 @@
+import heapq
+
 def solve(data):
     # will be list of valid data split by empty new line
     count = 0
@@ -18,8 +20,27 @@ def solve(data):
     return count
 
 def solve2(data):
-    return 0
-    # TODO
+    min_heap = []
+    for x in data:
+        if x == '':
+            break
+        t = tuple(map(int, x.split('-')))
+        heapq.heappush(min_heap, t)
+    
+    last_high = 0
+    total = 0
+
+    for _ in range(len(min_heap)):
+        t = heapq.heappop(min_heap)
+
+        if(t[0] > last_high):
+            total += (t[1] - t[0]) + 1
+        elif t[1] > last_high:
+            total += (t[1] - last_high)
+        
+        last_high = max(last_high, t[1])
+
+    return total
 
 def print_section(title, part1, part2):
     print("=" * 60)
