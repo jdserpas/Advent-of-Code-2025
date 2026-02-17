@@ -24,9 +24,7 @@ def solve(data):
             count += math.prod(temp)
         elif ops[i] == '+':
             count += sum(temp)
-    print(count)
-            
-
+    
     return count
 
 def solve2(data):
@@ -53,4 +51,4 @@ def run(filename, title):
 
 if __name__ == "__main__":
     run("example.txt", "EXAMPLE SOLUTION OUTPUT")
-    run("input.txt", "SOLUTION OUTPUT")
+    #run("input.txt", "SOLUTION OUTPUT")
